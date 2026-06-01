@@ -1,7 +1,20 @@
 import { motion } from "framer-motion";
 import { SlideContainer } from "@/components/presentation/SlideContainer";
+import pavelStepanekUrl from "@/assets/pavel-stepanek.webp";
 
-const SPEAKERS = [
+interface Speaker {
+  name: string;
+  role: string;
+  company: string;
+  initials?: string;
+  photo?: string;
+  accent: string;
+  pointA: string;
+  pointB: string;
+  pointC: string;
+}
+
+const SPEAKERS: Speaker[] = [
   {
     name: "Tomáš Čuban",
     role: "Live Build",
@@ -16,7 +29,7 @@ const SPEAKERS = [
     name: "Pavel Štěpánek",
     role: "Real-World Experience",
     company: "Groupon",
-    initials: "PŠ",
+    photo: pavelStepanekUrl,
     accent: "from-emerald-300 to-teal-500",
     pointA: "How Groupon uses Data Apps in production",
     pointB: "What replaced what · what stuck · what didn't",
@@ -56,9 +69,17 @@ export default function Slide22() {
               className="rounded-2xl border border-white/15 bg-white/[0.06] p-6 backdrop-blur"
             >
               <div className="flex items-center gap-4">
-                <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${s.accent} text-xl font-bold text-white shadow-lg`}>
-                  {s.initials}
-                </div>
+                {s.photo ? (
+                  <img
+                    src={s.photo}
+                    alt={s.name}
+                    className="h-16 w-16 shrink-0 rounded-full object-cover shadow-lg ring-2 ring-white/30"
+                  />
+                ) : (
+                  <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${s.accent} text-xl font-bold text-white shadow-lg`}>
+                    {s.initials}
+                  </div>
+                )}
                 <div>
                   <div className="text-[10px] font-semibold uppercase tracking-widest text-white/60">{s.role}</div>
                   <div className="text-2xl font-bold text-white">{s.name}</div>
