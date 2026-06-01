@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { resolvePublicPath } from "@/lib/assets";
+import keboolaLogoUrl from "@/assets/keboola-logo.svg";
 
 interface SlideContainerProps {
   children: React.ReactNode;
@@ -44,7 +44,7 @@ export function SlideContainer({ children, variant = "light", className, animati
 
         {/* Keboola logo watermark */}
         <img
-          src={resolvePublicPath("/images/keboola-logo.svg")}
+          src={keboolaLogoUrl}
           alt="Keboola"
           className={cn(
             "pointer-events-none absolute bottom-4 right-6 h-10",
