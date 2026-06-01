@@ -29,6 +29,8 @@ const CHAT_STEPS: ChatStep[] = [
 const BRAND_COUNT = 5; // Acme, Northwind, Helix, Lumen, Bulánek
 const BAR_HEIGHTS = [60, 88, 45, 72, 95, 55, 80];
 
+const MAX_ANIM_STEPS = CHAT_STEPS.length + BRAND_COUNT - 1;
+
 export default function Slide02() {
   const [chatStep, setChatStep] = useState(0);
   const [brandIndex, setBrandIndex] = useState(0);
@@ -36,23 +38,27 @@ export default function Slide02() {
   const visibleSteps = CHAT_STEPS.slice(0, chatStep);
   const reveal = visibleSteps.reduce((max, s) => Math.max(max, s.reveal), 0);
   const chatDone = chatStep >= CHAT_STEPS.length;
+  const animStep = chatStep + brandIndex;
+  const animStepRef = useRef(animStep);
+  useEffect(() => { animStepRef.current = animStep; }, [animStep]);
 
   useEffect(() => {
     function handleKey(event: KeyboardEvent) {
+      if (event.key !== "ArrowRight") return;
       const tag = (document.activeElement?.tagName ?? "").toLowerCase();
       if (tag === "input" || tag === "textarea" || tag === "select") return;
-      if (event.key === "b" || event.key === "B") {
-        event.preventDefault();
-        if (chatStep < CHAT_STEPS.length) {
-          setChatStep((prev) => prev + 1);
-        } else {
-          setBrandIndex((prev) => (prev + 1) % BRAND_COUNT);
-        }
-      }
+      if (animStepRef.current >= MAX_ANIM_STEPS) return;
+      event.preventDefault();
+      event.stopPropagation();
+      setChatStep((cs) => {
+        if (cs < CHAT_STEPS.length) return cs + 1;
+        setBrandIndex((bi) => Math.min(bi + 1, BRAND_COUNT - 1));
+        return cs;
+      });
     }
-    document.addEventListener("keydown", handleKey, true);
-    return () => document.removeEventListener("keydown", handleKey, true);
-  }, [chatStep]);
+    window.addEventListener("keydown", handleKey, true);
+    return () => window.removeEventListener("keydown", handleKey, true);
+  }, []);
 
   useEffect(() => {
     if (chatStep > 0) {
@@ -64,7 +70,7 @@ export default function Slide02() {
 
   return (
     <SlideContainer variant="blue" animationKey="slide-02">
-      <KeyHint keyLabel="B" variant="blue" />
+      {animStep < MAX_ANIM_STEPS && <KeyHint keyLabel="→" variant="blue" />}
 
       <div className="shrink-0 mb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/60">Spoiler</p>
@@ -121,18 +127,18 @@ export default function Slide02() {
                   </motion.div>
                 ))}
               </AnimatePresence>
-              {chatStep === 0 && <p className="py-6 text-center text-xs text-white/40">Press B to start…</p>}
+              {chatStep === 0 && <p className="py-6 text-center text-xs text-white/40">Press → to start…</p>}
               <div ref={bottomRef} />
             </div>
           </div>
           <p className="mt-2 text-center text-[11px] text-white/40">
             {chatDone ? (
               <>
-                Press <kbd className="rounded border border-white/20 bg-white/5 px-1.5 py-0.5 font-mono">B</kbd> to reskin the app · brand {brandIndex + 1}/{BRAND_COUNT}
+                Press <kbd className="rounded border border-white/20 bg-white/5 px-1.5 py-0.5 font-mono">→</kbd> to reskin the app · brand {brandIndex + 1}/{BRAND_COUNT}
               </>
             ) : (
               <>
-                Press <kbd className="rounded border border-white/20 bg-white/5 px-1.5 py-0.5 font-mono">B</kbd> to continue ({chatStep}/{CHAT_STEPS.length})
+                Press <kbd className="rounded border border-white/20 bg-white/5 px-1.5 py-0.5 font-mono">→</kbd> to continue ({chatStep}/{CHAT_STEPS.length})
               </>
             )}
           </p>

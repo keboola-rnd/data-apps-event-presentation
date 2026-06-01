@@ -1,8 +1,9 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { HashRouter, Routes, Route } from "react-router";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppShell } from "@/components/layout/AppShell";
 import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import { usePresentationStore } from "@/stores/presentation.store";
 
 const PresentationView = lazy(() => import("@/presentation/PresentationView"));
 
@@ -16,6 +17,11 @@ function Loading() {
 
 function AppRoutes() {
   useKeyboardNavigation();
+  const fontScale = usePresentationStore((s) => s.fontScale);
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = `${fontScale}%`;
+  }, [fontScale]);
 
   return (
     <Routes>

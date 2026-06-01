@@ -36,7 +36,7 @@ interface PresentationState {
 export const usePresentationStore = create<PresentationState>((set, get) => ({
   currentSlide: loadSlide(),
   totalSlides: TOTAL_SLIDES,
-  fontScale: 100 as FontScaleLevel,
+  fontScale: 120 as FontScaleLevel,
 
   setSlide: (slide) => {
     const { totalSlides } = get();

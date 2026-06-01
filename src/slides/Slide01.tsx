@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SlideContainer } from "@/components/presentation/SlideContainer";
 import { KeyHint } from "@/components/presentation/KeyHint";
@@ -11,25 +11,32 @@ const APP_TYPES = [
   "etc.",
 ];
 
+const MAX_STEP = 1;
+
 export default function Slide01() {
-  const [struck, setStruck] = useState(false);
+  const [step, setStep] = useState(0);
+  const stepRef = useRef(0);
+  useEffect(() => { stepRef.current = step; }, [step]);
 
   useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
+    function handleKey(event: KeyboardEvent) {
+      if (event.key !== "ArrowRight") return;
       const tag = (document.activeElement?.tagName ?? "").toLowerCase();
       if (tag === "input" || tag === "textarea" || tag === "select") return;
-      if (event.key === "b" || event.key === "B") {
-        event.preventDefault();
-        setStruck((prev) => !prev);
-      }
+      if (stepRef.current >= MAX_STEP) return;
+      event.preventDefault();
+      event.stopPropagation();
+      setStep((prev) => Math.min(prev + 1, MAX_STEP));
     }
-    document.addEventListener("keydown", handleKeyDown, true);
-    return () => document.removeEventListener("keydown", handleKeyDown, true);
+    window.addEventListener("keydown", handleKey, true);
+    return () => window.removeEventListener("keydown", handleKey, true);
   }, []);
+
+  const struck = step >= 1;
 
   return (
     <SlideContainer variant="blue" animationKey="slide-01">
-      <KeyHint keyLabel="B" variant="blue" />
+      {step < MAX_STEP && <KeyHint keyLabel="→" variant="blue" />}
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <h1 className="text-6xl font-bold leading-tight tracking-tight text-white md:text-7xl">
           <span className="relative inline-block">
