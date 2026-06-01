@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { SlideContainer } from "@/components/presentation/SlideContainer";
 import pavelStepanekUrl from "@/assets/pavel-stepanek.webp";
+import tomasCubanUrl from "@/assets/tomas-cuban.webp";
 
 interface Speaker {
   name: string;
@@ -19,7 +20,7 @@ const SPEAKERS: Speaker[] = [
     name: "Tomáš Čuban",
     role: "Live Build",
     company: "Keboola",
-    initials: "TČ",
+    photo: tomasCubanUrl,
     accent: "from-cyan-300 to-blue-500",
     pointA: "Takes the building blocks from this talk",
     pointB: "Walks through how the whole app is built — end to end",
