@@ -21,7 +21,7 @@ export const SLIDES: SlideConfig[] = [
   { number: 3, title: "Why We Even Started", section: SECTIONS.INTRO },
   { number: 4, title: "It Really Is That Simple", section: SECTIONS.STORY },
   { number: 5, title: "What People Started Building", section: SECTIONS.STORY },
-  { number: 6, title: "But You Still Had to Write It", section: SECTIONS.STORY },
+  { number: 6, title: "But You Still Had to Write the Code", section: SECTIONS.STORY },
   { number: 7, title: "Christmas 2025", section: SECTIONS.STORY },
   { number: 8, title: "Build Me Windows 11", section: SECTIONS.STORY },
   { number: 9, title: "So We Stopped Picking the Framework", section: SECTIONS.TODAY },

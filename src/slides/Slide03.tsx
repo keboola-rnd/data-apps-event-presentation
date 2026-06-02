@@ -17,7 +17,7 @@ export default function Slide03() {
             Keboola has always been strong at <strong>data preparation</strong> — extract, transform, store, govern.
           </motion.p>
           <motion.p initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1, duration: 0.3 }} className="text-lg leading-relaxed text-foreground">
-            But every <strong>visualization</strong> meant leaving the platform — Tableau, Power BI, Looker, or a Python notebook hosted somewhere else.
+            But every <strong>visualization</strong> meant leaving the platform — Tableau, Power BI, Looker, or a Python notebook hosted somewhere <em>else</em>.
           </motion.p>
           <motion.p initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.3 }} className="text-lg leading-relaxed text-foreground">
             Customers kept asking the same question: <em>can the dashboard live inside Keboola too?</em>

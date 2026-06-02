@@ -15,7 +15,7 @@ const SOLUTIONS: Solution[] = [
   { icon: "🔌", challenge: "Data access", answer: "Scoped workspace. SELECT from your tables, no creds, no DSN.", nextSlide: 24 },
   { icon: "✏️", challenge: "Editing", answer: "Embedded Kai. Users iterate by talking, app redeploys in seconds.", nextSlide: 25 },
   { icon: "📝", challenge: "Audit & compliance", answer: "Every read/write logged. SOC 2-ready, streamable to your SIEM.", nextSlide: 26 },
-  { icon: "💤", challenge: "Lifecycle & cost", answer: "Idle apps sleep at $0. Wake on demand in ~2s. Pay per second.", nextSlide: 27 },
+  { icon: "💤", challenge: "Lifecycle & cost", answer: "Idle apps sleep at $0. Wake on demand in ~2s. Pay only when used — rate per your contract.", nextSlide: 27 },
   { icon: "📊", challenge: "Observability", answer: "OTLP endpoint ready. One line in your app → events stream to storage.", nextSlide: 29 },
 ];
 
