@@ -4,7 +4,7 @@ import { ContentSlide } from "@/components/presentation/ContentSlide";
 export default function Slide06() {
   return (
     <ContentSlide
-      title="But You Still Had to Write It"
+      title="But You Still Had to Write the Code"
       subtitle="Streamlit was simple — but the code was still YOU."
       animationKey="slide-06"
     >
